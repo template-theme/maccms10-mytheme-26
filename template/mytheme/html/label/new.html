@@ -1,0 +1,66 @@
+{include file="public/data"}
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>最近更新-{$mytheme.site.title}</title>
+	<meta name="keywords" content="{$mytheme.site.keywords}" />
+	<meta name="description" content="{$mytheme.site.description}" />
+    {include file="public/include"}
+</head>
+<body>
+{include file="public/head"}
+<div class="container">
+    <div class="row">
+    	<div class="myui-panel clearfix">
+    		<div class="myui-panel-box clearfix">														
+    			{maccms:type ids="'.$mytheme['label']['new_id'].'" order="asc" by="sort" id="vo1" key="key1"}													
+    			<div class="col-lg-{$mytheme.label.new_col} col-md-4 col-sm-2 col-xs-1">
+					<div class="myui-panel-bg2 col-pd radius-4 clearfix">
+						<div class="myui-panel_hd">
+							<div class="myui-panel__head clearfix">
+								<h3 class="title">
+									{$vo1.type_name}{$mytheme.label.new_title}
+								</h3>		
+								<a class="more text-muted" href="{:mac_url_type($vo1.type_id,['id'=>$vo1['type_id'],'by'=>'time'],'show')}">更多 <i class="fa fa-angle-right"></i></a>
+							</div>
+						</div>
+						<div class="myui-panel_bd clearfix">
+							<ul class="myui-vodlist__media col-pd clearfix">
+								{maccms:vod num="5" type="'.$vo1['type_id'].'" order="desc" by="'.$mytheme['label']['new_by'].'"}
+								<li>
+									<div class="thumb">
+										<a class="myui-vodlist__thumb img-xs-70" style="background: url({$vo.vod_pic|mac_url_img});" href="{:mac_url_vod_detail($vo)}" title="{$vo.vod_name}">
+										</a>
+									</div>
+									<div class="detail detail-side">
+										<h4 class="title"><a href="{:mac_url_vod_detail($vo)}"><i class="fa fa-angle-right text-muted pull-right"></i> {$vo.vod_name|mac_substring=8}</a></h4>
+										<p class="font-12"><span class="text-muted">类型：</span>{$vo.type.type_name}，<span class="text-muted">地区：</span>{$vo.vod_area}</p>		
+										<p class="font-12 margin-0"><span class="text-muted">主演：</span>{$vo.vod_actor|mac_substring=12}</p>
+									</div>																										
+								</li>
+								{/maccms:vod}
+							</ul>
+							<ul class="myui-vodlist__text col-pd clearfix">
+								{maccms:vod num="'.$mytheme['label']['new_num'].'" type="'.$vo1['type_id'].'" order="desc" by="'.$mytheme['label']['new_by'].'" start="6"}
+								{if condition="$key gt 5"}
+								<li class="top-line">
+									<a href="{:mac_url_vod_detail($vo)}" title="{$vo.vod_name}"> 
+										{if $mytheme.rank.is}<span class="pull-right text-muted">{$vo.vod_remarks|mac_substring=10}</span> {/if}
+										{$vo.vod_name|mac_substring=10}
+									</a>
+								</li>
+								{/if}
+								{/maccms:vod}
+							</ul>
+						</div>
+					</div>
+    			</div>
+    			{/maccms:type}
+    		</div>
+    	</div>	
+    </div>
+</div>
+{include file="public/foot"}
+</body>
+</html>

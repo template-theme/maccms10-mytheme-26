@@ -1,0 +1,97 @@
+{include file="public/data"}
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="seo/vod_play"}   
+	{include file="public/include"}
+</head>
+<body class="active">
+
+	{include file="public/head"}
+
+	<div class="myui-container-bg padding-0">
+		<div class="container">
+			<div class="row">
+				<div class="myui-player__item clearfix" style="background-color: {$mytheme.player.sidebar_bg};">
+					<div class="{if $mytheme.player.side}col-md-wide-75 {/if} padding-0 relative clearfix" id="player-left">
+						{include file="block/vod_player"}
+						{if $mytheme.player.side}
+						<a class="is-btn hidden-sm hidden-xs" id="player-sidebar-is" href="javascript:;"><i class="fa fa-angle-right"></i></a>
+						{/if}
+					</div>
+					{if $mytheme.player.side}
+					<div class="col-md-wide-25 padding-0" id="player-sidebar">
+						{include file="vod/player_sidebar"}
+					</div>
+					{/if}
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	
+    <div class="container">
+        <div class="row">
+			<div class="myui-player__data hidden-sm hidden-xs clearfix">
+				{if $mytheme.bdshare.is}
+				<div class="bdshare bdsharebuttonbox pull-right hidden-sm hidden-xs" style="margin-top: 10px;">
+					<span class="bds_shere"></span>
+					{maccms:foreach name=":explode(',',''.$mytheme['bdshare']['btn'].'')" id="vo" key="key"}
+					<a class="bds_{$vo}" data-cmd="{$vo}"></a>
+					{/maccms:foreach}
+				</div>
+				{/if}
+				<h3>
+					<a href="{:mac_url_vod_detail($obj)}">{$obj.vod_name}</a>
+					<small class="text-muted">{$obj['vod_play_list'][$param['sid']]['urls'][$param['nid']]['name']}</small>
+				</h3>
+				<p class="text-muted margin-0">
+					{$obj.vod_time|date='Y-m-d',###}更新 / <span class="text-red">{$obj.vod_score}分</span> / <a class="text-muted" href="{:mac_url_type($obj.type.type_id,['id'=>$obj['type_id']],'show')}">{$obj.type.type_name}</a> / <a class="text-muted" href="{:mac_url_type($obj.type.type_id,['id'=>$obj['type_id'],'area'=>$obj['vod_area']],'show')}">{$obj.vod_area|mac_default='未知'}</a> / <a class="text-muted" href="{:mac_url_type($obj.type.type_id,['id'=>$obj['type_id'],'year'=>$obj['vod_year']],'show')}">{$obj.vod_year|mac_default='未知'}	</a>
+				</p>
+			</div>
+			
+			{if $mytheme.playpage.ad && $mytheme.playpage.ad1}
+			<div class="myui-panel myui-panel-bg clearfix">
+				<div class="myui-panel-box clearfix">
+					<div class="myui-panel_bd">
+						<div class="col-xs-1">
+							{$mytheme.playpage.ad1}
+						</div>
+					</div>
+				</div>				
+			</div>
+			{/if}
+
+			{include file="vod/like"}<!-- 猜你喜欢-->
+			
+			{if $mytheme.playpage.comment}
+			{include file="vod/comment"}<!-- 评论-->
+			{/if}
+			
+        </div>
+    </div>
+    
+    {if $mytheme.player.self}
+    <script type="text/javascript">
+    	$(".MacPlayer").addClass("embed-responsive").css({"padding-bottom":"{$mytheme.player.high}%","z-index":"99"});
+		$("#playleft,.dplayer-video-wrap").css({"position":"inherit","overflow":"initial"});
+    </script>
+    {/if}
+	
+	{if $mytheme.player.tips}
+	<script type="text/javascript">
+		MyTheme.Other.Roll('.tips','-30px');
+		$(".tips-close-btn").on("click",function(){
+			$(this).parents(".close-box").remove();
+			MyTheme.Other.Player();
+		});
+	</script>
+	{/if}
+
+	<span class="mac_hits hits hide" data-mid="{$maccms.mid}" data-id="{$obj.vod_id}{$obj.art_id}{$obj.topic_id}" data-type="hits"></span>
+	<span class="mac_ulog_set hide" data-type="4" data-mid="{$maccms.mid}" data-id="{$obj.vod_id}" data-sid="{$param.sid}" data-nid="{$param.nid}"></span>
+	<span class="vod_history hide" data-name="{$obj.vod_name|mac_substring=10}" data-link="{:mac_url_vod_play($obj,['sid'=>$param['sid'],'nid'=>$param['nid']])}"  data-pic="{$obj.vod_pic|mac_url_img}" data-part="{$obj['vod_play_list'][$param['sid']]['urls'][$param['nid']]['name']}" data-limit="{$mytheme.history.num}"></span>
+    
+	{include file="public/foot"}
+</body>
+</html>

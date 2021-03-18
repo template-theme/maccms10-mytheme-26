@@ -1,0 +1,22 @@
+{if $mytheme.like.is}
+<div class="myui-panel myui-panel-bg clearfix">
+	<div class="myui-panel-box clearfix">
+		<div class="myui-panel_hd">
+			<div class="myui-panel__head clearfix">
+				<h3 class="title">
+					{$mytheme.like.title}
+				</h3>		
+			</div>																		
+		</div>
+		<div class="myui-panel_bd">
+			<ul class="myui-vodlist__bd clearfix">
+				{maccms:vod num="'.$mytheme['like']['num'].'" type="'.$mytheme['like']['type'].'" order="desc" by="'.$mytheme['like']['by'].'"}
+				<li class="col-lg-{$mytheme.like.col} col-md-{$mytheme.col.md} col-sm-{$mytheme.col.sm} col-xs-{$mytheme.col.xs}{if condition="$key gt $mytheme.like.xs"} hidden-xs{/if}{if condition="$key gt $mytheme.like.sm"} hidden-sm{/if}">
+					{include file="block/vod_box"}										
+				</li>
+				{/maccms:vod}
+			</ul>			
+		</div>		
+	</div>						
+</div>
+{/if}

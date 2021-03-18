@@ -1,0 +1,25 @@
+{if $mytheme.home_list.is}
+{maccms:type order="asc" by="sort" ids="'.$mytheme['home_list']['id'].'" id="vo1" key="key1" flag="vod"}
+<div class="myui-panel myui-panel-bg clearfix">
+	<div class="myui-panel-box clearfix">		
+		<div class="myui-panel_bd clearfix">
+			<div class="myui-panel_hd">
+				<div class="myui-panel__head clearfix">				
+					<h3 class="title">
+						{$mytheme.home_list.title}{$vo1.type_name}
+					</h3>	
+					<a class="more text-muted" href="{:mac_url_type($vo1)}">更多 <i class="fa fa-angle-right"></i></a>
+				</div>																			
+			</div>	
+			<ul class="myui-vodlist clearfix">
+				{maccms:vod num="'.$mytheme['home_list']['num'].'" type="'.$vo1['type_id'].'" order="desc" by="'.$mytheme['home_list']['by'].'"}
+				<li class="col-lg-{$mytheme['home_list']['col']} col-md-{$mytheme.col.md} col-sm-{$mytheme.col.sm} col-xs-{$mytheme.col.xs}{if condition="$key gt $mytheme.home_list.xs"} hidden-xs{/if}{if condition="$key gt $mytheme.home_list.sm"} hidden-sm{/if}">
+					{include file="block/vod_box"}<!-- 列表 -->										
+				</li>
+				{/maccms:vod}
+			</ul>
+		</div>						
+	</div>
+</div>
+{/maccms:type}
+{/if}

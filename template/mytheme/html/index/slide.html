@@ -1,0 +1,34 @@
+{if $mytheme.home_slide.is}
+<div class="myui-panel margin-0 clearfix">	
+	<div class="myui-panel-box clearfix">
+		<div class="myui-panel_bd clearfix">								
+			<ul class="myui-vodlist clearfix">
+				<li class="{if $mytheme.home_slide.xs}col-md-wide-4 {/if}col-sm-1 col-xs-1">
+					<div class="flickity center clearfix" data-align="left" data-next="1"{if $mytheme.home_slide.play} data-play="{$mytheme.home_slide.play_time}"{/if}>
+						{maccms:vod num="'.$mytheme['home_slide']['num'].'" type="'.$mytheme['home_slide']['id'].'" order="desc" by="'.$mytheme['home_slide']['by'].'" level="'.$mytheme['home_slide']['level'].'"}
+						<div class="col-xs-1 padding-0">
+							<a class="myui-vodlist__thumb wide"{if $mytheme.site.link} href="{:mac_url_vod_play($vo,['sid'=>1,'nid'=>1])}"{else} href="{:mac_url_vod_detail($vo)}"{/if} title="{$vo.vod_name}" style="background: url({$vo.vod_pic_slide|mac_url_img}); {if $mytheme.home_slide.xs}padding-top: 61.5%;{else}padding-top: 35%;{/if}">
+								<span class="play hidden-xs"></span>		
+								<span class="pic-text text-center" style="padding: 10px; font-size: 15px;">{$vo.vod_name}</span>
+							</a>										
+						</div>
+						{/maccms:vod}
+					</div>
+				</li>
+				{if $mytheme.home_slide.xs}
+				{maccms:vod num="'.$mytheme['home_slide']['xs_num'].'" type="'.$mytheme['home_slide']['xs_type'].'" order="desc" by="'.$mytheme['home_slide']['xs_by'].'" level="'.$mytheme['home_slide']['xs_level'].'"}
+				<li class="col-md-5 col-sm-{$mytheme.col.sm} col-xs-{$mytheme.col.xs_wide}{if condition="$key gt $mytheme.home_hot.xs"} hidden-xs{/if}{if condition="$key gt $mytheme.home_hot.sm"} hidden-sm{/if}">
+					<div class="myui-vodlist__box">
+						<a class="myui-vodlist__thumb wide lazyload" href="{:mac_url_vod_play($vo)}" title="{$vo.vod_name}" data-original="{if $mytheme.home_slide.xs_img}{$vo.vod_pic_slide|mac_url_img}{else}{$vo.vod_pic|mac_url_img}{/if}">					
+							<span class="play hidden-xs"></span>		
+							<span class="pic-text text-left">{$vo.vod_name}</span>
+						</a>									
+					</div>
+				</li>
+				{/maccms:vod}
+				{/if}
+			</ul>											
+		</div>
+	</div>
+</div>
+{/if}
